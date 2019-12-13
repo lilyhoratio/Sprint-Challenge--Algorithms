@@ -10,12 +10,15 @@ def count_th(word):
     if (len(word) < 2):
         return 0
     
-    ## if the first two letters are "th", 
+    ## if the first two letters are "th"
     if (word[0:2] == "th"):
         return 1 + count_th(word[1:])
+
+    ## if there is no match, call function recursively but don't increment count
+    return count_th(word[1:])
     
     
 
 
-def count_th_loop(word):
+# def count_th_loop(word):
 
