@@ -98,10 +98,34 @@ class SortingRobot:
         """
         # Fill this out
         
+        # turn robot light on so set_light_on is true. Use in while loop to indicate needing to sort until light is turned off.
+        self.set_light_on()
+
         while self.light_is_on():
+            self.set_light_off() 
+            while self.can_move_right(): # check if robot can keep moving right
+                self.swap_item() # pick up / swap item
+                self.move_right() # move right
 
 
+                if self.compare_item() == 1: # if held item is bigger than the item the robot is positioned at, swap
+                    self.swap_item() 
+                    self.set_light_on() # turn light on
+                self.move_left() # if held item is smaller or you have made a swap holding the small item, move left
+                self.swap_item() # swap or drop the item into the empty position
+                self.move_right() # move right to pick up next item
+            
+            # once at the end, move left
+            while self.can_move_left():
+                self.swap_item()
+                self.move_left()
 
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.set_light_on()
+                self.move_right()
+                self.swap_item()
+                self.move_left()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
